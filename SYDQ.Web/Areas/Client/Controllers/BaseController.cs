@@ -10,6 +10,7 @@ namespace SYDQ.Web.Areas.Client.Controllers
 {
     public class BaseController : Controller
     {
+        [Obsolete]
         protected void RecordSearchItems(object queries)
         {
             RouteValueDictionary route = new RouteValueDictionary();

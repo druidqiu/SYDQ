@@ -14,7 +14,8 @@
     _startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + _intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - _intervalNum) > 0 ? (pageIndex - _intervalNum) : 1));
     _endPageNum = pageCount <= displayNum ? pageCount : ((_startPageNum + displayNum - 1) > pageCount ? pageCount : (_startPageNum + displayNum - 1));
 
-    var routeData = ViewBag.RouteData as RouteValueDictionary;
+    RouteValueDictionary routeData = new RouteValueDictionary();
+    routeData.AddQueryStringParameters();
 
     if (pageCount > 1)
     {

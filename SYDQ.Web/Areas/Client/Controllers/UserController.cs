@@ -24,7 +24,6 @@ namespace SYDQ.Web.Areas.Client.Controllers
         public ActionResult Index(int page = 1, string username = "", string email = "")
         {
             var users = _userService.GetPagedUsers(page, username, email).ConvertToView();
-            base.RecordSearchItems(new { username = username, email = email });
 
             return View(users);
         }
