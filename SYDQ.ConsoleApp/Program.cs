@@ -21,13 +21,14 @@ namespace SYDQ.ConsoleApp
             {
                 Username = "guoxin.qiu",
                 EmailAddress = "guoxin.qiu@pactera.com",
+                Password = "1",
                 CreatedUtc = DateTime.Now,
                 Roles = new List<Role>() { new Role { Name = "Admin" } },
                 Messages = new List<EmailMessage>() { new EmailMessage { Body = "aaa", Subject = "oye", ToUserKey = 1 } }
             };
 
             IUserService userService = AutofacBooter.GetInstance<IUserService>();
-            userService.AddUser(newUser);
+            //userService.AddUser(newUser);
 
             var usersFromDb = userService.GetAllUsers();
             foreach (User u in usersFromDb)

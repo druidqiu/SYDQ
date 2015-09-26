@@ -98,23 +98,14 @@ namespace SYDQ.Repository.EF
             return _dbSet;
         }
 
-        public IQueryable<T> GetAllInclude(string path)
+        public IQueryable<T> GetAllInclude(params Expression<Func<T, object>>[] paths)
         {
-            string[] pathArr = path.Split(',');
-
-            var source = GetAll();
-
-            for (int i = 0; i < pathArr.Length; i++)
+            var query = GetAll();
+            foreach (var path in paths)
             {
-                source = source.Include(pathArr[i]);
+                query = query.Include(path);
             }
-
-            return source;
-        }
-
-        public IQueryable<T> GetAllInclude<TProperty>(Expression<Func<T, TProperty>> path)
-        {
-            return _dbSet.Include(path);
+            return query;
         }
 
         public IQueryable<T> GetAllAsNoTracking()
@@ -122,23 +113,14 @@ namespace SYDQ.Repository.EF
             return _dbSet.AsNoTracking();
         }
 
-        public IQueryable<T> GetAllIncludeAsNoTracking(string path)
+        public IQueryable<T> GetAllIncludeAsNoTracking(params Expression<Func<T, object>>[] paths)
         {
-            string[] pathArr = path.Split(',');
-
-            var source = GetAllAsNoTracking();
-
-            for (int i = 0; i < pathArr.Length; i++)
+            var query = GetAllAsNoTracking();
+            foreach (var path in paths)
             {
-                source = source.Include(pathArr[i]);
+                query = query.Include(path);
             }
-
-            return source;
-        }
-
-        public IQueryable<T> GetAllIncludeAsNoTracking<TProperty>(Expression<Func<T, TProperty>> path)
-        {
-            return GetAllAsNoTracking().Include(path);
+            return query;
         }
 
         public List<TModel> SqlQuery<TModel>(string sql, params object[] sqlParams)

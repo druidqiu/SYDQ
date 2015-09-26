@@ -34,7 +34,7 @@ namespace SYDQ.Services.Implementations
 
         public List<User> GetAllUsers()
         {
-            return _userRepository.GetAllIncludeAsNoTracking("Roles,Messages").ToList();
+            return _userRepository.GetAllInclude(u => u.Roles, u => u.Messages).ToList();
         }
 
         public User Authenticate(string username, string password)

@@ -11,12 +11,8 @@ namespace SYDQ.Infrastructure.Domain
         T GetEntity(object id);
         T GetEntity(Expression<Func<T, bool>> expression);
         IQueryable<T> GetAll();
+        IQueryable<T> GetAllInclude(params Expression<Func<T, object>>[] paths);
         IQueryable<T> GetAllAsNoTracking();
-        /// <param name="path">split by ',',such as 'Orders.OrderLines,Messages'</param>
-        IQueryable<T> GetAllInclude(string path);
-        IQueryable<T> GetAllInclude<TProperty>(Expression<Func<T, TProperty>> path);
-        /// <param name="path">split by ',',such as 'Orders.OrderLines,Messages'</param>
-        IQueryable<T> GetAllIncludeAsNoTracking(string path);
-        IQueryable<T> GetAllIncludeAsNoTracking<TProperty>(Expression<Func<T, TProperty>> path);
+        IQueryable<T> GetAllIncludeAsNoTracking(params Expression<Func<T, object>>[] paths);
     }
 }
