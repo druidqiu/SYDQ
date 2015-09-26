@@ -18,10 +18,10 @@
       <!--befor publishing,change DEBUG to WARN-->
     </logger>
     <appender name="ErrorLogFileAppender" type="log4net.Appender.RollingFileAppender">
-      <file value="App_Data\Log_log4net\Error\Log_" />
+      <file value="App_Data\Log_log4net\Error\" />
       <appendToFile value="true" />
       <rollingStyle value="Composite" />
-      <datePattern value="yyyy-MM&quot;\\&quot;yyyy-MM-dd&quot;.log&quot;" />
+      <datePattern value="yyyy-MM-dd&quot;.log&quot;" />
       <maxSizeRollBackups value="10" />
       <maximumFileSize value="500KB" />
       <staticLogFileName value="false"/>
@@ -34,10 +34,10 @@
       </filter>
     </appender>
     <appender name="DebugLogFileAppender" type="log4net.Appender.RollingFileAppender">
-      <file value="App_Data\Log_log4net\Debug\Log_" />
+      <file value="App_Data\Log_log4net\Debug\" />
       <appendToFile value="true" />
       <rollingStyle value="Composite" />
-      <datePattern value="yyyy-MM&quot;\\&quot;yyyy-MM-dd&quot;.log&quot;" />
+      <datePattern value="yyyy-MM-dd&quot;.log&quot;" />
       <maxSizeRollBackups value="10" />
       <maximumFileSize value="500KB" />
       <staticLogFileName value="false"/>
@@ -50,10 +50,11 @@
       </filter>
     </appender>
     <appender name="InfoLogFileAppender" type="log4net.Appender.RollingFileAppender">
-      <file value="App_Data\Log_log4net\Info\Log_" />
+      <file value="App_Data\Log_log4net\Info\" />
       <appendToFile value="true" />
       <rollingStyle value="Composite" />
-      <datePattern value="yyyy-MM&quot;\\&quot;yyyy-MM-dd&quot;.log&quot;" />
+      <!--<datePattern value="yyyy-MM&quot;\\&quot;yyyy-MM-dd&quot;.log&quot;" />-->
+      <datePattern value="yyyy-MM-dd&quot;.log&quot;" />
       <maxSizeRollBackups value="10" />
       <maximumFileSize value="500KB" />
       <staticLogFileName value="false"/>
