@@ -41,8 +41,6 @@
   <ItemGroup>
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
-    <Compile Include="Messaging\UserService\GetPagedUsersRequest.cs" />
-    <Compile Include="Messaging\UserService\GetPagedUsersResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +54,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mappings\" />
+    <Folder Include="Messaging\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

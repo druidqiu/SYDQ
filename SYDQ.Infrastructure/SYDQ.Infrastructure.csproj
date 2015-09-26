@@ -66,13 +66,12 @@
     <Compile Include="Logging\LoggingFactory.cs" />
     <Compile Include="Messaging\Request.cs" />
     <Compile Include="Messaging\Response.cs" />
+    <Compile Include="Pager\BasePagedList.cs" />
     <Compile Include="Pager\IPagedList.cs" />
     <Compile Include="Pager\PagedList.cs" />
-    <Compile Include="Pager\PageExtensions.cs" />
-    <Compile Include="Pager\PageRequest.cs" />
-    <Compile Include="Pager\PageResponse.cs" />
-    <Compile Include="Pager\PagerOptions.cs" />
-    <Compile Include="Pager\QueryFieldAttribute.cs" />
+    <Compile Include="Pager\PagedListExtensions.cs" />
+    <Compile Include="Pager\PagedListMetaData.cs" />
+    <Compile Include="Pager\StaticPagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\IUnitOfWork.cs" />
   </ItemGroup>

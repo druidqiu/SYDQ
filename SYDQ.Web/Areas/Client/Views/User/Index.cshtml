@@ -1,0 +1,35 @@
+﻿@model SYDQ.Web.Areas.Client.Models.UserListViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="form-group">
+    @using (Html.BeginForm("Index", "User", FormMethod.Get))
+    {
+        <label>Username</label>@Html.TextBox("username")
+        <label>EMail</label>@Html.TextBox("email")
+        <button type="submit" value="Search">Search</button>
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Username</td>
+        <td>EmailAddress</td>
+        <td>Roles</td>
+    </tr>
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Username</td>
+            <td>@user.EmailAddress</td>
+            <td>@user.Roles</td>
+        </tr> 
+    }
+</table>
+
+@Html.Pager(Model.PagerMetaData)

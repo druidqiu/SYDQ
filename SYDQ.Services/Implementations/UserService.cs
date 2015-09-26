@@ -1,5 +1,6 @@
 ﻿using SYDQ.Core;
 using SYDQ.Infrastructure.Domain;
+using SYDQ.Infrastructure.Pager;
 using SYDQ.Infrastructure.UnitOfWork;
 using SYDQ.Services.Interfaces;
 using System;
@@ -34,7 +35,21 @@ namespace SYDQ.Services.Implementations
 
         public List<User> GetAllUsers()
         {
-            return _userRepository.GetAllInclude(u => u.Roles, u => u.Messages).ToList();
+            return _userRepository.GetAllIncludeAsNoTracking(u => u.Roles, u => u.Messages).ToList();
+        }
+
+        public IPagedList<User> GetPagedUsers(int page, string username, string emailAddress)
+        {
+            var query = _userRepository.GetAllIncludeAsNoTracking(u => u.Roles);
+            if (!string.IsNullOrWhiteSpace(username))
+            {
+                query = query.Where(u => u.Username.Contains(username));
+            }
+            if (!string.IsNullOrWhiteSpace(emailAddress))
+            {
+                query = query.Where(u => u.EmailAddress.Contains(emailAddress));
+            }
+            return query.OrderBy(u => u.Id).ToPagedList(page, 1);
         }
 
         public User Authenticate(string username, string password)

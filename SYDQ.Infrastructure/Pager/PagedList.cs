@@ -6,36 +6,39 @@ using System.Threading.Tasks;
 
 namespace SYDQ.Infrastructure.Pager
 {
-    internal class PagedList<T> : List<T>, IPagedList<T>
+    public class PagedList<T> : BasePagedList<T>
     {
-        public PagedList(IOrderedQueryable<T> allItems, int pageIndex, int pageSize)
+        public PagedList(IQueryable<T> superset, int pageIndex, int pageSize)
         {
-            TotalItemCount = allItems.Count();
-            CurrentPageIndex = pageIndex;
-            PageSize = pageSize;
+            if (pageIndex < 1)
+                throw new ArgumentOutOfRangeException(String.Format("pageIndex = {0}. PageIndex cannot be below 1.", pageIndex));
 
             if (pageSize < 1)
-            {
-                PageSize = 10;
-            }
-            if (pageIndex > TotalPageCount)
-            {
-                pageIndex = TotalPageCount;
-            }
-            if (pageIndex < 1)
-            {
-                pageIndex = 1;
-            }
+                throw new ArgumentOutOfRangeException(String.Format("pageSize = {0}. PageSize cannot be less than 1.", pageSize));
 
-            int startIndex = (CurrentPageIndex - 1) * PageSize;
-            AddRange(allItems.Skip(startIndex).Take(pageSize));
+            TotalItemCount = superset == null ? 0 : superset.Count();
+            PageSize = pageSize;
+            PageIndex = pageIndex;
+            PageCount = TotalItemCount > 0
+                        ? (int)Math.Ceiling(TotalItemCount / (double)PageSize)
+                        : 0;
+            HasPreviousPage = PageIndex > 1;
+            HasNextPage = PageIndex < PageCount;
+            IsFirstPage = PageIndex == 1;
+            IsLastPage = PageIndex >= PageCount;
+            FirstItemOnPage = (PageIndex - 1) * PageSize + 1;
+            var numberOfLastItemOnPage = FirstItemOnPage + PageSize - 1;
+            LastItemOnPage = numberOfLastItemOnPage > TotalItemCount
+                            ? TotalItemCount
+                            : numberOfLastItemOnPage;
+
+            if (superset != null && TotalItemCount > 0)
+                Subset.AddRange(superset.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList());
         }
 
-        public int CurrentPageIndex { get; set; }
-        public int PageSize { get; set; }
-        public int TotalItemCount { get; set; }
-        public int TotalPageCount { get { return (int)Math.Ceiling(TotalItemCount / (double)PageSize); } }
-        public int StartItemIndex { get { return (CurrentPageIndex - 1) * PageSize + 1; } }
-        public int EndItemIndex { get { return TotalItemCount > CurrentPageIndex * PageSize ? CurrentPageIndex * PageSize : TotalItemCount; } }
+        public PagedList(IEnumerable<T> superset, int pageIndex, int pageSize)
+            : this(superset.AsQueryable<T>(), pageIndex, pageSize)
+        {
+        }
     }
 }

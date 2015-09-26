@@ -1,0 +1,39 @@
+﻿@model SYDQ.Infrastructure.Pager.IPagedList
+@using SYDQ.Infrastructure.Web.Mvc.Extensions;
+@{
+    var controllerName = Html.ViewContext.RouteData.Values["controller"].ToString();
+    var actionName = Html.ViewContext.RouteData.Values["action"].ToString();
+    int pageSize = Model.PageSize;
+    int pageIndex = Model.PageIndex;
+    int pageCount = Model.PageCount;
+    int itemCount = Model.TotalItemCount;
+    int displayNum = 5;
+    int _startPageNum = 0;
+    int _endPageNum = 0;
+    int _intervalNum = displayNum / 2;
+    _startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + _intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - _intervalNum) > 0 ? (pageIndex - _intervalNum) : 1));
+    _endPageNum = pageCount <= displayNum ? pageCount : ((_startPageNum + displayNum - 1) > pageCount ? pageCount : (_startPageNum + displayNum - 1));
+
+    var routeData = ViewBag.RouteData as RouteValueDictionary;
+
+    if (pageCount > 1)
+    {
+        <nav class="pull-right malfiv">
+            <ul class="pagination ">
+                <li class="@(pageIndex == 1 ? "disabled" : "")">@Html.ActionLink("<<", actionName, controllerName, routeData, null)</li>
+                @for (int i = _startPageNum; i <= _endPageNum; i++)
+                {
+                    routeData.Remove("page");
+                    routeData.Add("page", i);
+                    <li class="@(i == pageIndex ? "active" : "")">@Html.ActionLink(i.ToString(), actionName, controllerName, routeData, null)</li>
+                }
+                @{
+                routeData.Remove("page");
+                routeData.Add("page", pageCount);
+                }
+                <li class="@(pageIndex == pageCount ? "disabled" : "")">@Html.ActionLink(">>", actionName, controllerName, routeData, null)</li>
+            </ul>
+            <p class="pull-right mfiv">共 @pageCount 页 @itemCount 条记录</p>
+        </nav>
+    }
+}

@@ -43,6 +43,12 @@ namespace System.Web.Mvc
             return new MvcHtmlString("");
         }
 
+        public static MvcHtmlString Pager(this HtmlHelper htmlHelper, IPagedList pagerMetaData)
+        {
+            return htmlHelper.Partial("_PagerPartial", pagerMetaData);
+        }
+
+
         public static HtmlString HtmlConvertToJson(this HtmlHelper htmlHelper, object model)
         {
             var settings = new JsonSerializerSettings
@@ -72,17 +78,6 @@ namespace System.Web.Mvc
               }),
               fieldName,
               BuildSortIcon(isCurrentSortField, queryOptions)));
-        }
-
-        public static void AjaxPager(this HtmlHelper htmlHelper, PagerOptions pageOptions, string targetId)
-        {
-            pageOptions.TargetId = targetId;
-            RenderPartialExtensions.RenderPartial(htmlHelper, "_AjaxPagerPartial", pageOptions);
-        }
-
-        public static void Pager(this HtmlHelper htmlHelper, PagerOptions pageOptions)
-        {
-            RenderPartialExtensions.RenderPartial(htmlHelper, "_PagerPartial", pageOptions);
         }
 
         private static string BuildSortIcon(bool isCurrentSortField

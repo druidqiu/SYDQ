@@ -135,7 +135,7 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Client\Models\" />
+    <Folder Include="Areas\Client\Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\ApplicationErrorHandler.cs" />
@@ -146,7 +146,12 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
+    <Compile Include="Areas\Client\Controllers\BaseController.cs" />
     <Compile Include="Areas\Client\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Client\Controllers\UserController.cs" />
+    <Compile Include="Areas\Client\Mappings\UserMapping.cs" />
+    <Compile Include="Areas\Client\Models\PagedViewModel.cs" />
+    <Compile Include="Areas\Client\Models\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,6 +179,8 @@
     <Content Include="Areas\Client\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Client\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Client\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Client\Views\User\Index.cshtml" />
+    <Content Include="Areas\Client\Views\Shared\_PagerPartial.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
