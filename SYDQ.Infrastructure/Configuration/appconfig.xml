@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<appconfig>
+  <item key="WebRootUrl" value=""/>
+  <item key="LoggerName" value="Logging"/>
+  <item key="NumberOfResultsPerPage" value="10"/>
+  <item key="JanrainApiKey" value="cfdd99e0787cd37c28f93d35f1a0a5c1764a90db"/>
+  <item key="SmtpHost" value="stmp.xx.com"/>
+  <item key="SmtpUserName" value="administrator"/>
+  <item key="SmtpUserAddress" value="xx@xx.com"/>
+  <item key="SmtpUserPwd" value="xxxxxx"/>
+</appconfig>

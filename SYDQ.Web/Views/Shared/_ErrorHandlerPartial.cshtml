@@ -1,0 +1,17 @@
+﻿@model System.Exception
+<br />
+<div class="accordion" id="accordionException">
+    <div class="panel panel-danger">
+        <div class="panel-heading" style="cursor:pointer">
+            <div data-toggle="collapse" data-parent="#accordionException" href="#collapseExceptionMessage">
+                Exception Message: @Model.Message
+            </div>
+        </div>
+        <div id="collapseExceptionMessage" class="panel-collapse collapse">
+            <div class="panel-body">
+                @Html.Raw(Model.ToString().Replace("\r\n","<br/>"))
+            </div>
+        </div>
+    </div>
+</div>
+<br />

@@ -1,0 +1,51 @@
+﻿@model SYDQ.Web.Models.LoginViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Login";
+}
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div>
+        @Html.ShowException()
+        
+        <div class="container-fluid">
+            @using (Html.BeginForm())
+            {
+            <div class="row">
+                <table>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Username)</td>
+                        <td>@Html.TextBoxFor(m => m.Username, new { placeholder = "user name required." })</td>
+                    </tr>
+                    <tr>
+                        <td>@Html.LabelFor(m => m.Password)</td>
+                        <td>@Html.PasswordFor(m => m.Password, new { placeholder = "password required." })</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ValidationSummary()
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            }
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    </div>
+</body>
+</html>
