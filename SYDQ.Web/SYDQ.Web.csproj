@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Client\Views\Base\" />
@@ -143,20 +142,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Client\ClientAreaRegistration.cs" />
-    <Compile Include="Areas\Client\Controllers\BaseController.cs" />
-    <Compile Include="Areas\Client\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Client\Controllers\UserController.cs" />
-    <Compile Include="Areas\Client\Mappings\UserMapping.cs" />
-    <Compile Include="Areas\Client\Models\PagedViewModel.cs" />
-    <Compile Include="Areas\Client\Models\UserViewModel.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -206,6 +194,10 @@
     <Content Include="Views\Shared\_ErrorHandlerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SYDQ.Controllers\SYDQ.Controllers.csproj">
+      <Project>{389e9d1f-ef4e-4c7a-9c00-de3095e82083}</Project>
+      <Name>SYDQ.Controllers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SYDQ.Core\SYDQ.Core.csproj">
       <Project>{88ae0e66-c21c-47a0-9bc9-c2632e455cb8}</Project>
       <Name>SYDQ.Core</Name>
@@ -217,6 +209,10 @@
     <ProjectReference Include="..\SYDQ.Infrastructure\SYDQ.Infrastructure.csproj">
       <Project>{728614ac-3a67-488f-a683-7e45e57bfa57}</Project>
       <Name>SYDQ.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SYDQ.IServices\SYDQ.IServices.csproj">
+      <Project>{e445fe49-1f26-4f29-a306-8db8c1c7ff21}</Project>
+      <Name>SYDQ.IServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\SYDQ.Repository.EF\SYDQ.Repository.EF.csproj">
       <Project>{194519d1-4ac4-4408-8e36-4a4d8b6dbed1}</Project>

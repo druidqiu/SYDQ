@@ -1,4 +1,4 @@
-﻿@model SYDQ.Web.Areas.Client.Models.UserListViewModel
+﻿@model SYDQ.Infrastructure.Pager.IPagedList<SYDQ.IServices.ViewModels.UserView>
 @{
     ViewBag.Title = "Index";
 }
@@ -21,7 +21,7 @@
         <td>EmailAddress</td>
         <td>Roles</td>
     </tr>
-    @foreach (var user in Model.Users)
+    @foreach (var user in Model)
     {
         <tr>
             <td>@user.Id</td>
@@ -32,4 +32,4 @@
     }
 </table>
 
-@Html.Pager(Model.PagerMetaData)
+@Html.Pager(Model)

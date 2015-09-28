@@ -5,7 +5,7 @@
     var actionName = Html.ViewContext.RouteData.Values["action"].ToString();
     int pageSize = Model.PageSize;
     int pageIndex = Model.PageIndex;
-    int pageCount = Model.PageCount;
+    int pageCount = Model.TotalPageCount;
     int itemCount = Model.TotalItemCount;
     int displayNum = 5;
     int _startPageNum = 0;
@@ -21,6 +21,10 @@
     {
         <nav class="pull-right malfiv">
             <ul class="pagination ">
+                @{
+                    routeData.Remove("page");
+                    routeData.Add("page", 1);
+                }
                 <li class="@(pageIndex == 1 ? "disabled" : "")">@Html.ActionLink("<<", actionName, controllerName, routeData, null)</li>
                 @for (int i = _startPageNum; i <= _endPageNum; i++)
                 {

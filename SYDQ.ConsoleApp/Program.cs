@@ -1,6 +1,7 @@
 ﻿using SYDQ.Core;
+using SYDQ.IServices.Interfaces;
+using SYDQ.IServices.ViewModels;
 using SYDQ.Repository.EF;
-using SYDQ.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.Interception;
@@ -30,12 +31,16 @@ namespace SYDQ.ConsoleApp
             IUserService userService = AutofacBooter.GetInstance<IUserService>();
             //userService.AddUser(newUser);
 
-            var usersFromDb = userService.GetAllUsers();
-            foreach (User u in usersFromDb)
+            var usersFromDb = userService.GetPagedUserView(new IServices.Messaging.UserService.GetPagedUserViewRequest
+            {
+                PageIndex = 1,
+                PageSize = 10
+            });
+            foreach (UserView u in usersFromDb)
             {
                 Console.WriteLine("---------start-----------");
                 Console.WriteLine(u.ToString());
-                Console.WriteLine("Messages count: " + u.Messages.Count());
+                //Console.WriteLine("Messages count: " + u.Messages.Count());
                 Console.WriteLine("Roles count: " + u.Roles.Count());
                 Console.WriteLine("---------end-----------");
             }

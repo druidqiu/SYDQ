@@ -32,7 +32,7 @@ namespace SYDQ.Web
 
         protected void Application_Error()
         {
-            //ApplicationErrorHandler.Handler(Server, Response, Context);
+            ApplicationErrorHandler.Handler(Server, Response, Context);
         }
 
         protected void Application_BeginRequest()

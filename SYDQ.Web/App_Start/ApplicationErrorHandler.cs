@@ -1,5 +1,4 @@
-﻿using SYDQ.Web.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +11,7 @@ namespace SYDQ.Web.App_Start
     {//TODO: need to update
         public static void Handler(HttpServerUtility Server, HttpResponse Response, HttpContext Context)
         {
-            string fileName = "KISS_" + DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+            string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
             string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data\\Log");
             if (!System.IO.Directory.Exists(path))
             {

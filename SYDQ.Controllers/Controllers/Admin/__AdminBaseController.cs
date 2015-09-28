@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SYDQ.Web.Areas.Client.Controllers
+namespace SYDQ.Controllers.Controllers.Admin
 {
-    public class BaseController : Controller
+    public class AdminBaseController : Controller
     {
         [Obsolete]
         protected void RecordSearchItems(object queries)
@@ -17,9 +18,9 @@ namespace SYDQ.Web.Areas.Client.Controllers
 
             foreach (PropertyInfo info in queries.GetType().GetProperties())
             {
-                route.Add(info.Name, info.GetValue(queries,null));    
+                route.Add(info.Name, info.GetValue(queries, null));
             }
-            
+
             ViewBag.RouteData = route;
         }
     }

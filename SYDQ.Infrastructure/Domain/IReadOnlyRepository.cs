@@ -11,8 +11,10 @@ namespace SYDQ.Infrastructure.Domain
         T GetEntity(object id);
         T GetEntity(Expression<Func<T, bool>> expression);
         IQueryable<T> GetAll();
+        /// <param name="paths">ep:cf=> cf.Packages or cf => cf.Packages.Select(cp => cp.PackageRegistration</param>
         IQueryable<T> GetAllInclude(params Expression<Func<T, object>>[] paths);
         IQueryable<T> GetAllAsNoTracking();
+        /// <param name="paths">ep:cf=> cf.Packages or cf => cf.Packages.Select(cp => cp.PackageRegistration</param>
         IQueryable<T> GetAllIncludeAsNoTracking(params Expression<Func<T, object>>[] paths);
     }
 }

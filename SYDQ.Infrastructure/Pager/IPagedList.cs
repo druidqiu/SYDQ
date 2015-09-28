@@ -11,7 +11,7 @@ namespace SYDQ.Infrastructure.Pager
     {
         int PageIndex { get; }
         int PageSize { get; }
-        int PageCount { get; }
+        int TotalPageCount { get; }
         int TotalItemCount { get; }
 
         bool HasPreviousPage { get; }

@@ -1,14 +1,15 @@
-﻿using SYDQ.Infrastructure.Web.Authentication;
+﻿using SYDQ.Controllers.ViewModel;
+using SYDQ.Infrastructure.Web.Authentication;
 using SYDQ.Infrastructure.Web.Mvc.Session;
-using SYDQ.Services.Interfaces;
-using SYDQ.Web.Models;
+using SYDQ.IServices.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace SYDQ.Web.Controllers
+namespace SYDQ.Controllers.Controllers
 {
     public class AccountController : Controller
     {
@@ -80,5 +81,5 @@ namespace SYDQ.Web.Controllers
                 return RedirectToAction("Index", "Home", new { area = "Client" });
             }
         }
-	}
+    }
 }

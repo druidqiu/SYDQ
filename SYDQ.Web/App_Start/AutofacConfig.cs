@@ -48,7 +48,7 @@ namespace SYDQ.Web.App_Start
 
         private static void SetupResolveRules(ContainerBuilder builder)
         {
-            builder.RegisterControllers(typeof(AutofacConfig).Assembly);
+            builder.RegisterControllers(Assembly.Load("SYDQ.Controllers"));
 
             builder.RegisterGeneric(typeof(EntityRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
             

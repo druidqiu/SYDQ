@@ -3,6 +3,7 @@ using SYDQ.Infrastructure.Pager;
 using SYDQ.Infrastructure.Web.Mvc.Extensions;
 using System.Text;
 using System.Web.Mvc.Html;
+using System.Web.Routing;
 
 namespace System.Web.Mvc
 {
@@ -44,6 +45,74 @@ namespace System.Web.Mvc
         }
 
         public static MvcHtmlString Pager(this HtmlHelper htmlHelper, IPagedList pagerMetaData)
+        {
+            var htmlString = string.Empty;
+            if (pagerMetaData.TotalPageCount > 1)
+            {
+                var controllerName =htmlHelper.ViewContext.RouteData.Values["controller"].ToString();
+                var actionName = htmlHelper.ViewContext.RouteData.Values["action"].ToString();
+                int pageSize = pagerMetaData.PageSize;
+                int pageIndex = pagerMetaData.PageIndex;
+                int pageCount = pagerMetaData.TotalPageCount;
+                int itemCount = pagerMetaData.TotalItemCount;
+                int displayNum = 5;
+                int _startPageNum = 0;
+                int _endPageNum = 0;
+                int _intervalNum = displayNum / 2;
+                _startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + _intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - _intervalNum) > 0 ? (pageIndex - _intervalNum) : 1));
+                _endPageNum = pageCount <= displayNum ? pageCount : ((_startPageNum + displayNum - 1) > pageCount ? pageCount : (_startPageNum + displayNum - 1));
+
+                RouteValueDictionary routeData = new RouteValueDictionary();
+                routeData.AddQueryStringParameters();
+
+                StringBuilder content = new StringBuilder();
+                routeData.Remove("page");
+                routeData.Add("page", 1);
+                content.Append("<ul class=\"pagination pull-right\">");
+
+                //turn to first page
+                if (pageIndex == 1)
+                {
+                    content.Append("<li class=\"disabled\"><a><<</a></li>");
+                }
+                else
+                {
+                    content.Append("<li>")
+                        .Append(htmlHelper.ActionLink("<<", actionName, controllerName, routeData, null).ToHtmlString())
+                        .Append("</li>");
+                }
+
+                for (int i = _startPageNum; i <= _endPageNum; i++)
+                {
+                    routeData["page"] = i;
+                    bool isActive = pageIndex == i;
+                    content.Append(isActive?"<li class=\"active\">":"<li>")
+                        .Append(htmlHelper.ActionLink(i.ToString(), actionName, controllerName, routeData, null).ToHtmlString())
+                        .Append("</li>");
+                }
+
+                //turn to last page
+                routeData["page"] = pageCount;
+                if (pageIndex == pageCount)
+                {
+                    content.Append("<li class=\"disabled\"><a>>></a></li>");
+                }
+                else
+                {
+                    content.Append("<li>")
+                        .Append(htmlHelper.ActionLink(">>", actionName, controllerName, routeData, null).ToHtmlString())
+                        .Append("</li>");
+                }
+
+                content.Append("<li class=\"disabled\"><a>").Append(pageIndex.ToString()).Append("/").Append(pageCount.ToString()).Append("</a></li>");
+
+                htmlString = content.ToString();
+            }
+
+            return new MvcHtmlString(htmlString);
+        }
+
+        public static MvcHtmlString PagerPartial(this HtmlHelper htmlHelper, IPagedList pagerMetaData)
         {
             return htmlHelper.Partial("_PagerPartial", pagerMetaData);
         }

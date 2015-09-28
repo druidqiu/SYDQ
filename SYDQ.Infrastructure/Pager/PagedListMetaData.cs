@@ -13,7 +13,7 @@ namespace SYDQ.Infrastructure.Pager
 
         public PagedListMetaData(IPagedList pagedList)
         {
-            PageCount = pagedList.PageCount;
+            TotalPageCount = pagedList.TotalPageCount;
             TotalItemCount = pagedList.TotalItemCount;
             PageIndex = pagedList.PageIndex;
             PageSize = pagedList.PageSize;
@@ -24,7 +24,7 @@ namespace SYDQ.Infrastructure.Pager
             FirstItemOnPage = pagedList.FirstItemOnPage;
             LastItemOnPage = pagedList.LastItemOnPage;
         }
-        public int PageCount { get; protected set; }
+        public int TotalPageCount { get; protected set; }
         public int TotalItemCount { get; protected set; }
         public int PageIndex { get; protected set; }
         public int PageSize { get; protected set; }

@@ -2,7 +2,10 @@
 using SYDQ.Infrastructure.Domain;
 using SYDQ.Infrastructure.Pager;
 using SYDQ.Infrastructure.UnitOfWork;
-using SYDQ.Services.Interfaces;
+using SYDQ.IServices.Interfaces;
+using SYDQ.IServices.Messaging;
+using SYDQ.IServices.Messaging.UserService;
+using SYDQ.IServices.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,39 +25,28 @@ namespace SYDQ.Services.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public User GetUserById(int id)
+        public UserView Authenticate(string username, string password)
         {
-            return _userRepository.GetEntity(id);
+            return _userRepository.GetEntity(u => u.Username == username && u.Password == password).ConvertToUserView();
         }
 
-        public void AddUser(User user)
+
+        public UserView GetUserById(int id)
         {
-            _userRepository.Insert(user);
-            _unitOfWork.Commit();
+            return _userRepository.GetEntity(id).ConvertToUserView();
         }
 
-        public List<User> GetAllUsers()
-        {
-            return _userRepository.GetAllIncludeAsNoTracking(u => u.Roles, u => u.Messages).ToList();
-        }
-
-        public IPagedList<User> GetPagedUsers(int page, string username, string emailAddress)
+        public IPagedList<UserView> GetPagedUserView(GetPagedUserViewRequest request)
         {
             var query = _userRepository.GetAllIncludeAsNoTracking(u => u.Roles);
-            if (!string.IsNullOrWhiteSpace(username))
-            {
-                query = query.Where(u => u.Username.Contains(username));
-            }
-            if (!string.IsNullOrWhiteSpace(emailAddress))
-            {
-                query = query.Where(u => u.EmailAddress.Contains(emailAddress));
-            }
-            return query.OrderBy(u => u.Id).ToPagedList(page, 1);
-        }
 
-        public User Authenticate(string username, string password)
-        {
-            return _userRepository.GetEntity(u => u.Username == username && u.Password == password);
+            if (!string.IsNullOrWhiteSpace(request.Username))
+                query = query.Where(u => u.Username.Contains(request.Username));
+            if (!string.IsNullOrWhiteSpace(request.EmailAddress))
+                query = query.Where(u => u.EmailAddress.Contains(request.EmailAddress));
+
+            return query.OrderBy(u => u.Id)
+                .ToPagedList(request.PageIndex, request.PageSize, p => p.ConvertToUserView());
         }
     }
 }

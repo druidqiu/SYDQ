@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E870B7CB-28B5-4896-9AB2-C2B725A9D900}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{E445FE49-1F26-4F29-A306-8DB8C1C7FF21}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SYDQ.ConsoleApp</RootNamespace>
-    <AssemblyName>SYDQ.ConsoleApp</AssemblyName>
+    <RootNamespace>SYDQ.IServices</RootNamespace>
+    <AssemblyName>SYDQ.IServices</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,18 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac">
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -52,38 +39,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutofacBooter.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Messaging\PagedRequest.cs" />
+    <Compile Include="Messaging\Response.cs" />
+    <Compile Include="Messaging\UserService\GetPagedUserViewRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Messaging\Request.cs" />
+    <Compile Include="ViewModels\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SYDQ.Core\SYDQ.Core.csproj">
-      <Project>{88ae0e66-c21c-47a0-9bc9-c2632e455cb8}</Project>
-      <Name>SYDQ.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SYDQ.Infrastructure.Web\SYDQ.Infrastructure.Web.csproj">
-      <Project>{1a97c6e6-0250-44d0-af6c-4572706f92e8}</Project>
-      <Name>SYDQ.Infrastructure.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SYDQ.Infrastructure\SYDQ.Infrastructure.csproj">
       <Project>{728614ac-3a67-488f-a683-7e45e57bfa57}</Project>
       <Name>SYDQ.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SYDQ.IServices\SYDQ.IServices.csproj">
-      <Project>{e445fe49-1f26-4f29-a306-8db8c1c7ff21}</Project>
-      <Name>SYDQ.IServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SYDQ.Repository.EF\SYDQ.Repository.EF.csproj">
-      <Project>{194519d1-4ac4-4408-8e36-4a4d8b6dbed1}</Project>
-      <Name>SYDQ.Repository.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SYDQ.Services\SYDQ.Services.csproj">
-      <Project>{647dd5c8-27a2-436b-b0a0-5309e5caf0aa}</Project>
-      <Name>SYDQ.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

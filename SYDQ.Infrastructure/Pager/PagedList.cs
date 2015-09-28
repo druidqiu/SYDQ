@@ -19,13 +19,13 @@ namespace SYDQ.Infrastructure.Pager
             TotalItemCount = superset == null ? 0 : superset.Count();
             PageSize = pageSize;
             PageIndex = pageIndex;
-            PageCount = TotalItemCount > 0
+            TotalPageCount = TotalItemCount > 0
                         ? (int)Math.Ceiling(TotalItemCount / (double)PageSize)
                         : 0;
             HasPreviousPage = PageIndex > 1;
-            HasNextPage = PageIndex < PageCount;
+            HasNextPage = PageIndex < TotalPageCount;
             IsFirstPage = PageIndex == 1;
-            IsLastPage = PageIndex >= PageCount;
+            IsLastPage = PageIndex >= TotalPageCount;
             FirstItemOnPage = (PageIndex - 1) * PageSize + 1;
             var numberOfLastItemOnPage = FirstItemOnPage + PageSize - 1;
             LastItemOnPage = numberOfLastItemOnPage > TotalItemCount

@@ -39,8 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\PagedListExtension.cs" />
     <Compile Include="Implementations\UserService.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Mappings\UserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -52,11 +53,12 @@
       <Project>{728614ac-3a67-488f-a683-7e45e57bfa57}</Project>
       <Name>SYDQ.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SYDQ.IServices\SYDQ.IServices.csproj">
+      <Project>{e445fe49-1f26-4f29-a306-8db8c1c7ff21}</Project>
+      <Name>SYDQ.IServices</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messaging\" />
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

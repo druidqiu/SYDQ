@@ -18,21 +18,21 @@ namespace SYDQ.Web
                 name: "Account",
                 url: "Account/{action}",
                 defaults: new { controller = "Account", acion = "Login" },
-                namespaces: new string[] { "SYDQ.Web.Controllers" }
+                namespaces: new string[] { "SYDQ.Controllers.Controllers" }
             );
 
             routes.MapRoute(
                 name: "Admin",
                 url: "Admin/{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "SYDQ.Web.Areas.Admin.Controllers" }
+                namespaces: new string[] { "SYDQ.Controllers.Controllers.Admin" }
             ).DataTokens.Add("area", "Admin");
 
             routes.MapRoute(
                 name: "Client",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "SYDQ.Web.Areas.Client.Controllers" }
+                namespaces: new string[] { "SYDQ.Controllers.Controllers.Client" }
             ).DataTokens.Add("area", "Client");
 
         }

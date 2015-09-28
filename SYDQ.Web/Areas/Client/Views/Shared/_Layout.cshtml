@@ -28,12 +28,12 @@
     <div class="container body-content">
         @Html.ShowException()
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
-
+    
+    <hr />
+    <footer style="text-align:center">
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
