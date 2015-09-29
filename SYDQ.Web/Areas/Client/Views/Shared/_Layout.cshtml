@@ -21,6 +21,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 </ul>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
@@ -36,6 +37,16 @@
     </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @*<script src="~/Scripts/jresize.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $.jResize({
+                viewPortSizes: ['320px', '480px', '540px', '600px', '768px', '960px', '1024px', '1280px'], // ViewPort Widths
+                backgroundColor: '444', // HEX Code
+                fontColor: 'FFF' // HEX Code
+            });
+        });
+    </script>*@
     @RenderSection("scripts", required: false)
     @StackExchange.Profiling.MiniProfiler.RenderIncludes()
 </body>

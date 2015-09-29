@@ -58,6 +58,7 @@ namespace SYDQ.Controllers.Controllers
             }
 
             ModelState.AddModelError("", "User name or password is wrong.");
+            ViewBag.ShowError = true;
             return View(model);
         }
 
