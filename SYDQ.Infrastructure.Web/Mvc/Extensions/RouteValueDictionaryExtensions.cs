@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
 using System.Web.Routing;
 
 namespace SYDQ.Infrastructure.Web.Mvc.Extensions
@@ -14,7 +11,11 @@ namespace SYDQ.Infrastructure.Web.Mvc.Extensions
 
             foreach (var key in querystring.AllKeys)
                 if (key != null && !dict.ContainsKey(key))
-                    dict.Add(key, querystring.GetValues(key)[0]);
+                {
+                    var values = querystring.GetValues(key);
+                    if (values != null)
+                        dict.Add(key, values[0]);
+                }
 
             return dict;
         }

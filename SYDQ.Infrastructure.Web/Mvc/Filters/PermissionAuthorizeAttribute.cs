@@ -1,10 +1,7 @@
-﻿using SYDQ.Infrastructure.Web.Mvc.Session;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Web;
 using System.Web.Mvc;
+using SYDQ.Infrastructure.Web.Mvc.Session;
 
 namespace SYDQ.Infrastructure.Web.Mvc.Filters
 {
@@ -16,21 +13,21 @@ namespace SYDQ.Infrastructure.Web.Mvc.Filters
 
     public class PermissionAuthorizeAttribute : AuthorizeAttribute
     {
-        private string _permissionKey { get; set; }
+        private string PermissionKey { get; set; }
 
         public PermissionAuthorizeAttribute(PermissionKey permissionKey)
         {
-            _permissionKey = permissionKey.ToString();
+            PermissionKey = permissionKey.ToString();
         }
 
-        protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
+        protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             if (SessionHelper.RetrieveUserInfo() == null)
             {
                 httpContext.Response.StatusCode = 403;
                 return true; //返回false会执行HandleUnauthorizedRequest方法，返回true会把Session失效问题交给RequiresAuthentication处理。
             }
-            if (SessionHelper.RetrieveUserInfo().PermissionKeys.Contains(_permissionKey))
+            if (SessionHelper.RetrieveUserInfo().PermissionKeys.Contains(PermissionKey))
             {
                 return true;
             }
@@ -49,15 +46,7 @@ namespace SYDQ.Infrastructure.Web.Mvc.Filters
             }
             else
             {
-                if (filterContext.HttpContext.Request.IsAjaxRequest())
-                {
-                    filterContext.Result = new RedirectResult("/Error/AjaxNoAccess");
-                }
-                else
-                {
-                    filterContext.Result = new RedirectResult("/Error/NoAccess");
-                }
-                return;
+                filterContext.Result = filterContext.HttpContext.Request.IsAjaxRequest() ? new RedirectResult("/Error/AjaxNoAccess") : new RedirectResult("/Error/NoAccess");
             }
         }
     }

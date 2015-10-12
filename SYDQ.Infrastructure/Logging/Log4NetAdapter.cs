@@ -1,10 +1,6 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using log4net.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYDQ.Infrastructure.Logging
 {
@@ -20,7 +16,7 @@ namespace SYDQ.Infrastructure.Logging
 
         private Uri GetUri()
         {
-            return new Uri(System.AppDomain.CurrentDomain.BaseDirectory + "bin\\Configuration\\log4netConfig.xml");
+            return new Uri(AppDomain.CurrentDomain.BaseDirectory + "bin\\Configuration\\log4netConfig.xml");
         }
 
         public void Debug(object message)

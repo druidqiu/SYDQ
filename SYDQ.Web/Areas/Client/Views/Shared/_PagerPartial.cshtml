@@ -3,16 +3,13 @@
 @{
     var controllerName = Html.ViewContext.RouteData.Values["controller"].ToString();
     var actionName = Html.ViewContext.RouteData.Values["action"].ToString();
-    int pageSize = Model.PageSize;
     int pageIndex = Model.PageIndex;
     int pageCount = Model.TotalPageCount;
     int itemCount = Model.TotalItemCount;
-    int displayNum = 5;
-    int _startPageNum = 0;
-    int _endPageNum = 0;
-    int _intervalNum = displayNum / 2;
-    _startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + _intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - _intervalNum) > 0 ? (pageIndex - _intervalNum) : 1));
-    _endPageNum = pageCount <= displayNum ? pageCount : ((_startPageNum + displayNum - 1) > pageCount ? pageCount : (_startPageNum + displayNum - 1));
+    const int displayNum = 5;
+    const int intervalNum = displayNum / 2;
+    var startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - intervalNum) > 0 ? (pageIndex - intervalNum) : 1));
+    var endPageNum = pageCount <= displayNum ? pageCount : ((startPageNum + displayNum - 1) > pageCount ? pageCount : (startPageNum + displayNum - 1));
 
     RouteValueDictionary routeData = new RouteValueDictionary();
     routeData.AddQueryStringParameters();
@@ -26,7 +23,7 @@
                     routeData.Add("page", 1);
                 }
                 <li class="@(pageIndex == 1 ? "disabled" : "")">@Html.ActionLink("<<", actionName, controllerName, routeData, null)</li>
-                @for (int i = _startPageNum; i <= _endPageNum; i++)
+                @for (int i = startPageNum; i <= endPageNum; i++)
                 {
                     routeData.Remove("page");
                     routeData.Add("page", i);

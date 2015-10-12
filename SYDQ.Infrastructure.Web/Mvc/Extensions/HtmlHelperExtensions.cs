@@ -39,7 +39,7 @@ namespace System.Web.Mvc
             var exception = htmlHelper.ViewContext.Controller.ViewData["Exception"] as Exception;
             if (exception != null)
             {
-                return Html.PartialExtensions.Partial(htmlHelper, "_ErrorHandlerPartial", exception);
+                return htmlHelper.Partial("_ErrorHandlerPartial", exception);
             }
             return new MvcHtmlString("");
         }
@@ -51,16 +51,12 @@ namespace System.Web.Mvc
             {
                 var controllerName =htmlHelper.ViewContext.RouteData.Values["controller"].ToString();
                 var actionName = htmlHelper.ViewContext.RouteData.Values["action"].ToString();
-                int pageSize = pagerMetaData.PageSize;
                 int pageIndex = pagerMetaData.PageIndex;
                 int pageCount = pagerMetaData.TotalPageCount;
-                int itemCount = pagerMetaData.TotalItemCount;
-                int displayNum = 5;
-                int _startPageNum = 0;
-                int _endPageNum = 0;
-                int _intervalNum = displayNum / 2;
-                _startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + _intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - _intervalNum) > 0 ? (pageIndex - _intervalNum) : 1));
-                _endPageNum = pageCount <= displayNum ? pageCount : ((_startPageNum + displayNum - 1) > pageCount ? pageCount : (_startPageNum + displayNum - 1));
+                const int displayNum = 5;
+                const int intervalNum = displayNum / 2;
+                var startPageNum = pageCount <= displayNum ? 1 : ((pageIndex + intervalNum) >= pageCount ? (pageCount - displayNum + 1) : ((pageIndex - intervalNum) > 0 ? (pageIndex - intervalNum) : 1));
+                var endPageNum = pageCount <= displayNum ? pageCount : ((startPageNum + displayNum - 1) > pageCount ? pageCount : (startPageNum + displayNum - 1));
 
                 RouteValueDictionary routeData = new RouteValueDictionary();
                 routeData.AddQueryStringParameters();
@@ -82,7 +78,7 @@ namespace System.Web.Mvc
                         .Append("</li>");
                 }
 
-                for (int i = _startPageNum; i <= _endPageNum; i++)
+                for (int i = startPageNum; i <= endPageNum; i++)
                 {
                     routeData["page"] = i;
                     bool isActive = pageIndex == i;
@@ -142,8 +138,8 @@ namespace System.Web.Mvc
               {
                   SortField = sortField,
                   SortOrder = (isCurrentSortField
-                      && queryOptions.SortOrder == SortOrder.ASC)
-                    ? SortOrder.DESC : SortOrder.ASC
+                      && queryOptions.SortOrder == SortOrder.Asc)
+                    ? SortOrder.Desc : SortOrder.Asc
               }),
               fieldName,
               BuildSortIcon(isCurrentSortField, queryOptions)));
@@ -157,7 +153,7 @@ namespace System.Web.Mvc
             if (isCurrentSortField)
             {
                 sortIcon += "-by-alphabet";
-                if (queryOptions.SortOrder == SortOrder.DESC)
+                if (queryOptions.SortOrder == SortOrder.Desc)
                     sortIcon += "-alt";
             }
 

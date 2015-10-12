@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using SYDQ.Infrastructure.Logging;
 
 namespace SYDQ.Infrastructure.Web.Mvc.Filters
 {
-    public class CustomHandleErrorAttribute : HandleErrorAttribute, IExceptionFilter
+    public class CustomHandleErrorAttribute : HandleErrorAttribute
     {
         public override void OnException(ExceptionContext filterContext)
         {
@@ -57,7 +54,7 @@ namespace SYDQ.Infrastructure.Web.Mvc.Filters
             }
 
             //log the error by using your own method
-            Logging.LoggingFactory.GetLogger().Error(filterContext.Exception);
+            LoggingFactory.GetLogger().Error(filterContext.Exception);
 
             filterContext.ExceptionHandled = true;
             filterContext.HttpContext.Response.Clear();

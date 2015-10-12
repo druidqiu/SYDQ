@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYDQ.Infrastructure.Pager
 {
@@ -37,7 +35,7 @@ namespace SYDQ.Infrastructure.Pager
         }
 
         public PagedList(IEnumerable<T> superset, int pageIndex, int pageSize)
-            : this(superset.AsQueryable<T>(), pageIndex, pageSize)
+            : this(superset.AsQueryable(), pageIndex, pageSize)
         {
         }
     }

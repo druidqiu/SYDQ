@@ -1,11 +1,6 @@
-﻿using SYDQ.Core;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SYDQ.Core;
 
 namespace SYDQ.Repository.EF.Configurations
 {
@@ -24,13 +19,13 @@ namespace SYDQ.Repository.EF.Configurations
             Property(u => u.PasswordResetToken).HasColumnName("PasswordResetToken").HasMaxLength(32);
             Property(u => u.PasswordResetTokenExpirationDate).HasColumnName("PasswordResetTokenExpirationDate");
 
-            this.HasMany<Role>(r => r.Roles)
+            HasMany<Role>(r => r.Roles)
                 .WithMany(r => r.Users)
                 .Map(m => m.ToTable("UserRoles")
                     .MapLeftKey("UserId")
                     .MapRightKey("RoleId"));
 
-            this.HasMany<EmailMessage>(u => u.Messages)
+            HasMany<EmailMessage>(u => u.Messages)
                 .WithRequired(em => em.ToUser)
                 .HasForeignKey(em => em.ToUserKey);
         }

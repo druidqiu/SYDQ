@@ -1,20 +1,16 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using System.Web.Mvc;
+using Autofac;
+using Autofac.Integration.Mvc;
 using SYDQ.Infrastructure.Configuration;
 using SYDQ.Infrastructure.Domain;
 using SYDQ.Infrastructure.Email;
 using SYDQ.Infrastructure.Logging;
 using SYDQ.Infrastructure.UnitOfWork;
-using SYDQ.Repository.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using Autofac.Integration.Mvc;
-using System.Web.Mvc;
 using SYDQ.Infrastructure.Web.Authentication;
+using SYDQ.Repository.EF;
 
-namespace SYDQ.Web.App_Start
+namespace SYDQ.Web
 {
     public class AutofacConfig
     {
@@ -36,14 +32,14 @@ namespace SYDQ.Web.App_Start
 
             SetupResolveRules(builder);
 
-            IContainer _container = builder.Build();
+            IContainer container = builder.Build();
 
             //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);//for web api
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(_container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            EntitiesContextFactory.Init(_container.Resolve<IEntitiesContextStorageContainer>());
-            ApplicationSettingsFactory.InitializeApplicationSettingsFactory(_container.Resolve<IApplicationSettings>());
-            LoggingFactory.InitializeLogFactory(_container.Resolve<ILogger>());
+            EntitiesContextFactory.Init(container.Resolve<IEntitiesContextStorageContainer>());
+            ApplicationSettingsFactory.InitializeApplicationSettingsFactory(container.Resolve<IApplicationSettings>());
+            LoggingFactory.InitializeLogFactory(container.Resolve<ILogger>());
         }
 
         private static void SetupResolveRules(ContainerBuilder builder)

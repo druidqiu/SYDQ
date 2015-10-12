@@ -1,34 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Web;
-using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace SYDQ.Web.App_Start
 {
     public class ApplicationErrorHandler
     {//TODO: need to update
-        public static void Handler(HttpServerUtility Server, HttpResponse Response, HttpContext Context)
+        public static void Handler(HttpServerUtility server, HttpResponse response, HttpContext context)
         {
             string fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
-            string path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data\\Log");
-            if (!System.IO.Directory.Exists(path))
+            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data\\Log");
+            if (!Directory.Exists(path))
             {
-                System.IO.Directory.CreateDirectory(path);
+                Directory.CreateDirectory(path);
             }
-            string fileFullName = System.IO.Path.Combine(path, fileName);
+            string fileFullName = Path.Combine(path, fileName);
             try
             {
-                System.IO.StreamWriter writer = new System.IO.StreamWriter(fileFullName, true);
-                writer.WriteLine("Exception at " + DateTime.Now.ToString() + ":");
-                writer.WriteLine(Server.GetLastError().Source);
-                writer.WriteLine(Server.GetLastError().Message);
-                writer.WriteLine(Server.GetLastError().TargetSite);
+                StreamWriter writer = new StreamWriter(fileFullName, true);
+                writer.WriteLine("Exception at " + DateTime.Now + ":");
+                writer.WriteLine(server.GetLastError().Source);
+                writer.WriteLine(server.GetLastError().Message);
+                writer.WriteLine(server.GetLastError().TargetSite);
                 writer.Close();
 
-                Exception exception = Server.GetLastError();
-                Response.Clear();
+                Exception exception = server.GetLastError();
+                response.Clear();
                 HttpException httpException = exception as HttpException;
                 RouteData routeData = new RouteData();
                 routeData.Values.Add("controller", "Error");
@@ -54,13 +52,13 @@ namespace SYDQ.Web.App_Start
                     }
                 }
                 routeData.Values.Add("error", exception.Message);
-                Server.ClearError();
+                server.ClearError();
                 //IController errorController = new ErrorsController();
                 //errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
             }
             catch (Exception)
             {
-
+                // ignored
             }
         }
     }

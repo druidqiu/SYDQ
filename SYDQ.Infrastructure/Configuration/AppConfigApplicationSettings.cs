@@ -1,7 +1,4 @@
-﻿using System;
-using System.Web;
-
-namespace SYDQ.Infrastructure.Configuration
+﻿namespace SYDQ.Infrastructure.Configuration
 {
     public class AppConfigApplicationSettings : IApplicationSettings
     {

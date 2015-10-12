@@ -1,6 +1,5 @@
-﻿using SYDQ.Infrastructure.Web.Mvc.Filters;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using SYDQ.Infrastructure.Web.Mvc.Filters;
 
 namespace SYDQ.Web
 {

@@ -1,22 +1,18 @@
-﻿using StackExchange.Profiling;
-using StackExchange.Profiling.EntityFramework6;
-using SYDQ.Repository.EF;
-using SYDQ.Web.App_Start;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure.Interception;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using StackExchange.Profiling;
+using StackExchange.Profiling.EntityFramework6;
+using SYDQ.Infrastructure.Configuration;
+using SYDQ.Web.App_Start;
 
 namespace SYDQ.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -55,7 +51,7 @@ namespace SYDQ.Web
             try
             {
                 Thread.Sleep(5000);
-                string baseUrl = SYDQ.Infrastructure.Configuration.ApplicationSettingsFactory.GetApplicationSettings().WebRootUrl;
+                string baseUrl = ApplicationSettingsFactory.GetApplicationSettings().WebRootUrl;
                 HttpWebRequest myHttpWebRequest = (HttpWebRequest)WebRequest.Create(baseUrl);
                 myHttpWebRequest.UseDefaultCredentials = true;
 

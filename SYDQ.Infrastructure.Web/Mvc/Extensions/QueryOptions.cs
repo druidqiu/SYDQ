@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SYDQ.Infrastructure.Web.Mvc.Extensions
+﻿namespace SYDQ.Infrastructure.Web.Mvc.Extensions
 {
     public class QueryOptions
     {
         public QueryOptions()
         {
             SortField = "Id";
-            SortOrder = SortOrder.ASC;
+            SortOrder = SortOrder.Asc;
         }
 
         public string SortField { get; set; }
@@ -20,14 +14,14 @@ namespace SYDQ.Infrastructure.Web.Mvc.Extensions
         {
             get
             {
-                return string.Format("{0} {1}", SortField, SortOrder.ToString());
+                return string.Format("{0} {1}", SortField, SortOrder);
             }
         }
     }
 
     public enum SortOrder
     {
-        ASC,
-        DESC
+        Asc,
+        Desc
     }
 }

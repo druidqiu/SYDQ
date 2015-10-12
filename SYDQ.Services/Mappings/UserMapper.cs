@@ -1,10 +1,8 @@
-﻿using SYDQ.Core;
-using SYDQ.IServices.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SYDQ.Core;
+using SYDQ.IServices.ViewModels;
 
 namespace SYDQ.Services
 {
@@ -27,16 +25,7 @@ namespace SYDQ.Services
 
         public static List<UserView> ConvertToUserView(this IEnumerable<User> users)
         {
-            if (users == null)
-                return null;
-
-            List<UserView> userViewList = new List<UserView>();
-            foreach (User user in users)
-            {
-                userViewList.Add(user.ConvertToUserView());
-            }
-
-            return userViewList;
+            return users == null ? null : users.Select(user => user.ConvertToUserView()).ToList();
         }
     }
 }

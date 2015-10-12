@@ -1,13 +1,12 @@
-﻿using SYDQ.Core;
-using SYDQ.IServices.Interfaces;
-using SYDQ.IServices.ViewModels;
-using SYDQ.Repository.EF;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SYDQ.Core;
+using SYDQ.IServices.Interfaces;
+using SYDQ.IServices.Messaging.UserService;
+using SYDQ.IServices.ViewModels;
+using SYDQ.Repository.EF;
 
 namespace SYDQ.ConsoleApp
 {
@@ -16,7 +15,7 @@ namespace SYDQ.ConsoleApp
         static void Main(string[] args)
         {
             AutofacBooter.Run();
-            DbInterception.Add(new EFIntercepterLogging());
+            DbInterception.Add(new EfIntercepterLogging());
 
             User newUser = new User()
             {
@@ -31,7 +30,7 @@ namespace SYDQ.ConsoleApp
             IUserService userService = AutofacBooter.GetInstance<IUserService>();
             //userService.AddUser(newUser);
 
-            var usersFromDb = userService.GetPagedUserView(new IServices.Messaging.UserService.GetPagedUserViewRequest
+            var usersFromDb = userService.GetPagedUserView(new GetPagedUserViewRequest
             {
                 PageIndex = 1,
                 PageSize = 10

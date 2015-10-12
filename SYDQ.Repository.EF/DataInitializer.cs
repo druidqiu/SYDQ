@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
 namespace SYDQ.Repository.EF
 {
@@ -17,10 +12,6 @@ namespace SYDQ.Repository.EF
 
         private void InitData(EntitiesContext context)
         {
-            var now = DateTime.Now;
-            var today = now.Date;
-
-            //context.Commit();
         }
     }
 }

@@ -14,9 +14,7 @@ namespace SYDQ.Infrastructure.Web.CookieStorage
         public string Retrieve(string key)
         {
             HttpCookie cookie = HttpContext.Current.Request.Cookies[key];
-            if (cookie != null)
-                return cookie.Value;
-            return "";
+            return cookie != null ? cookie.Value : "";
         }
     }
 

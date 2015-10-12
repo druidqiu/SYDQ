@@ -4,7 +4,7 @@ namespace SYDQ.Infrastructure.Domain
 {
     public abstract class EntityBase
     {
-        private List<BusinessRule> _brokenRules = new List<BusinessRule>();
+        private readonly List<BusinessRule> _brokenRules = new List<BusinessRule>();
 
         protected abstract void Validate();
 

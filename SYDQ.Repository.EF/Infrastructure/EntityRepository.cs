@@ -1,14 +1,10 @@
-﻿using SYDQ.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 using EntityFramework.Extensions;
 using SYDQ.Infrastructure.Domain;
-using SYDQ.Repository.EF;
 
 namespace SYDQ.Repository.EF
 {
@@ -101,11 +97,7 @@ namespace SYDQ.Repository.EF
         public IQueryable<T> GetAllInclude(params Expression<Func<T, object>>[] paths)
         {
             var query = GetAll();
-            foreach (var path in paths)
-            {
-                query = query.Include(path);
-            }
-            return query;
+            return paths.Aggregate(query, (current, path) => current.Include(path));
         }
 
         public IQueryable<T> GetAllAsNoTracking()
@@ -116,11 +108,7 @@ namespace SYDQ.Repository.EF
         public IQueryable<T> GetAllIncludeAsNoTracking(params Expression<Func<T, object>>[] paths)
         {
             var query = GetAllAsNoTracking();
-            foreach (var path in paths)
-            {
-                query = query.Include(path);
-            }
-            return query;
+            return paths.Aggregate(query, (current, path) => current.Include(path));
         }
 
         public List<TModel> SqlQuery<TModel>(string sql, params object[] sqlParams)

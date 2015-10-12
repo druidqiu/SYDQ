@@ -1,11 +1,8 @@
-﻿using SYDQ.Infrastructure.Configuration;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Xml.Linq;
-
+using SYDQ.Infrastructure.Configuration;
 
 namespace SYDQ.Infrastructure.Web.Authentication
 {
@@ -26,9 +23,11 @@ namespace SYDQ.Infrastructure.Web.Authentication
             }
             var xmlResponse = XDocument.Parse(response);
             var userProfile = (from x in xmlResponse.Descendants("profile")
-                               select new
+                let xElement = x.Element("identifier")
+                where xElement != null
+                select new
                                {
-                                   id = x.Element("identifier").Value,
+                                   id = xElement.Value,
                                    email = (string)x.Element("email") ?? "No Email"
                                }).SingleOrDefault();
 

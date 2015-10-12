@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SYDQ.Repository.EF
+﻿namespace SYDQ.Repository.EF
 {
     public class EntitiesContextFactory
     {

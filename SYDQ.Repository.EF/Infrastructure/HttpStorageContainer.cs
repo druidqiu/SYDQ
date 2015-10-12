@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Web;
 
 namespace SYDQ.Repository.EF
 {
     public class HttpStorageContainer : IEntitiesContextStorageContainer
     {
-        private string _dataContextKey = "EF_CONTEXT_STORAGE_CONTAINER";
+        private readonly string _dataContextKey = "EF_CONTEXT_STORAGE_CONTAINER";
 
         public EntitiesContext GetCurrentContext()
         {

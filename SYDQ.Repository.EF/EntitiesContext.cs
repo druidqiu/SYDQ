@@ -1,12 +1,7 @@
-﻿using SYDQ.Core;
-using SYDQ.Repository.EF.Configurations;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SYDQ.Core;
+using SYDQ.Repository.EF.Configurations;
 
 namespace SYDQ.Repository.EF
 {
@@ -16,13 +11,13 @@ namespace SYDQ.Repository.EF
 
         static EntitiesContext()
         {
-            DBInitializer.SetInitializer();
+            DbInitializer.SetInitializer();
         }
 
         public EntitiesContext()
             : base("EntitiesContext")
         {
-            this.Configuration.ProxyCreationEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
         }
         
         #endregion Constructor
@@ -32,11 +27,6 @@ namespace SYDQ.Repository.EF
         public IDbSet<User> Users { get; set; }
         
         #endregion DbSet
-
-        public override int SaveChanges()
-        {
-            return base.SaveChanges();
-        }
 
         public void SetCommandTimeout(int? seconds)
         {

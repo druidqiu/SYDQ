@@ -1,9 +1,7 @@
-﻿using SYDQ.Infrastructure.Pager;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SYDQ.Infrastructure.Pager;
 
 namespace SYDQ.Services
 {
@@ -15,7 +13,7 @@ namespace SYDQ.Services
         {
             var pagedList = superset.ToPagedList(pageIndex, pageSize);
             var newList = converter(pagedList);
-            return new StaticPagedList<T1>(converter(pagedList), pagedList.GetMetaData());
+            return new StaticPagedList<T1>(newList, pagedList.GetMetaData());
         }
     }
 }

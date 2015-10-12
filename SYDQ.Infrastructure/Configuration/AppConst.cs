@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SYDQ.Infrastructure.Configuration
+﻿namespace SYDQ.Infrastructure.Configuration
 {
     public sealed class AppConst
     {

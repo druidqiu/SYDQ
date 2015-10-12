@@ -1,23 +1,19 @@
-﻿using SYDQ.Infrastructure.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Data.Common;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYDQ.Repository.EF
 {
-    public class EFIntercepterLogging : DbCommandInterceptor
+    public class EfIntercepterLogging : DbCommandInterceptor
     {
         private readonly Stopwatch _stopwatch = new Stopwatch();
-        public override void ScalarExecuting(System.Data.Common.DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
+        public override void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
             base.ScalarExecuting(command, interceptionContext);
             _stopwatch.Restart();
         }
-        public override void ScalarExecuted(System.Data.Common.DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
+        public override void ScalarExecuted(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
             _stopwatch.Stop();
 
@@ -25,12 +21,12 @@ namespace SYDQ.Repository.EF
 
             base.ScalarExecuted(command, interceptionContext);
         }
-        public override void NonQueryExecuting(System.Data.Common.DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
+        public override void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
             base.NonQueryExecuting(command, interceptionContext);
             _stopwatch.Restart();
         }
-        public override void NonQueryExecuted(System.Data.Common.DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
+        public override void NonQueryExecuted(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
             _stopwatch.Stop();
 
@@ -38,12 +34,12 @@ namespace SYDQ.Repository.EF
 
             base.NonQueryExecuted(command, interceptionContext);
         }
-        public override void ReaderExecuting(System.Data.Common.DbCommand command, DbCommandInterceptionContext<System.Data.Common.DbDataReader> interceptionContext)
+        public override void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
             base.ReaderExecuting(command, interceptionContext);
             _stopwatch.Restart();
         }
-        public override void ReaderExecuted(System.Data.Common.DbCommand command, DbCommandInterceptionContext<System.Data.Common.DbDataReader> interceptionContext)
+        public override void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
             _stopwatch.Stop();
 
@@ -59,17 +55,17 @@ namespace SYDQ.Repository.EF
             {
                 string infoMsg = string.Format("\r\n-----------------\r\n{3}\r\n<--Executed {0} Command in {1} milliseconds ended at {2}-->\r\n",
                     commandType, (int)milliseconds, DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), commandText);
-                EFDebuger(EFIntercepterLogType.Info, infoMsg);
+                EFDebuger(EfIntercepterLogType.Info, infoMsg);
             }
             else
             {
                 string errorMsg = string.Format("\r\n-----------------Command:{3}\r\nException:{4}\r\n<--Executed {0} Command Error in {1} milliseconds ended at {2}-->\r\n",
-                    commandType, (int)milliseconds, DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), commandText, ex.ToString());
-                EFDebuger(EFIntercepterLogType.Error, errorMsg);
+                    commandType, (int)milliseconds, DateTime.Now.ToString("yyyyMMdd HH:mm:ss"), commandText, ex);
+                EFDebuger(EfIntercepterLogType.Error, errorMsg);
             }
         }
 
-        private void EFDebuger(EFIntercepterLogType type, string errorMsg)
+        private void EFDebuger(EfIntercepterLogType type, string errorMsg)
         {
             Trace.TraceInformation(errorMsg);
             //if (type == EFIntercepterLogType.Info)
@@ -79,7 +75,7 @@ namespace SYDQ.Repository.EF
         }
     }
 
-    public enum EFIntercepterLogType
+    public enum EfIntercepterLogType
     {
         Info,
         Error

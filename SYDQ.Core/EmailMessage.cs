@@ -1,9 +1,5 @@
-﻿using SYDQ.Infrastructure.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SYDQ.Infrastructure.Domain;
 
 namespace SYDQ.Core
 {

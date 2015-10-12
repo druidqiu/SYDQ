@@ -1,13 +1,8 @@
-﻿using SYDQ.Controllers.ViewModel;
+﻿using System.Web.Mvc;
+using SYDQ.Controllers.ViewModel;
 using SYDQ.Infrastructure.Web.Authentication;
 using SYDQ.Infrastructure.Web.Mvc.Session;
 using SYDQ.IServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace SYDQ.Controllers.Controllers
 {

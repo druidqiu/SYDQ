@@ -1,9 +1,5 @@
-﻿using SYDQ.Infrastructure.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using SYDQ.Infrastructure.UnitOfWork;
 
 namespace SYDQ.Repository.EF
 {
@@ -18,17 +14,10 @@ namespace SYDQ.Repository.EF
 
         public bool Commit()
         {
-            try
-            {
-                bool flag = _entities.SaveChanges() > 0;
-                if (_entities.Configuration.AutoDetectChangesEnabled == false)
-                    _entities.Configuration.AutoDetectChangesEnabled = true;
-                return flag;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            bool flag = _entities.SaveChanges() > 0;
+            if (_entities.Configuration.AutoDetectChangesEnabled == false)
+                _entities.Configuration.AutoDetectChangesEnabled = true;
+            return flag;
         }
 
         public void Rollback()

@@ -4,7 +4,7 @@
 }
 
 /** Login form **/
-.login-form{
+.login-form {
     max-width: 400px;
     padding: 30px;
     margin: 0 auto;
@@ -12,11 +12,14 @@
     border: 1px solid #E5E5E5;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    -webkit-box-shadow: 0 1px 2px #000000;
+    -moz-box-shadow: 0 1px 2px #000000;
+    -ms-box-shadow: 0 1px 2px #000000;
+    box-shadow: 0 1px 2px #000000;
 }
+
 .login-form h1{
     font-size: 36px;
     margin-bottom: 25px;
@@ -37,7 +40,8 @@
 .login-form input[type="checkbox"]{
     margin-right: 5px;
 }
-.login-form button{
+.login-form button {
+    -ms-border-radius: 6px;
     border-radius: 6px;
     font-size: 18px;
     line-height: 1.33;
@@ -49,9 +53,15 @@ html.vertical-centered {
     height: 100%;
     overflow: hidden;
     min-height: 100%;
+    -moz-min-width: 100%;
+    -ms-min-width: 100%;
+    -o-min-width: 100%;
+    -webkit-min-width: 100%;
     min-width: 100%;
     width: 100%;
-}/** align center **/
+}
+
+/** align center **/
 html.vertical-centered body{
     height: 100%;
     margin: 0;

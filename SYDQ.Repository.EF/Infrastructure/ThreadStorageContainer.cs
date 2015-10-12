@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SYDQ.Repository.EF
 {
     public class ThreadStorageContainer : IEntitiesContextStorageContainer
     {
-        private static readonly Hashtable _EFContexts = new Hashtable();
+        private static readonly Hashtable EfContexts = new Hashtable();
         public EntitiesContext GetCurrentContext()
         {
             EntitiesContext context = null;
-            if (_EFContexts.Contains(GetThreadName()))
+            if (EfContexts.Contains(GetThreadName()))
             {
-                context = (EntitiesContext)_EFContexts[GetThreadName()];
+                context = (EntitiesContext)EfContexts[GetThreadName()];
             }
             return context;
         }
 
         public void Store(EntitiesContext dataContext)
         {
-            if (_EFContexts.Contains(GetThreadName()))
+            if (EfContexts.Contains(GetThreadName()))
             {
-                _EFContexts[GetThreadName()] = dataContext;
+                EfContexts[GetThreadName()] = dataContext;
             }
             else
             {
-                _EFContexts.Add(GetThreadName(), dataContext);
+                EfContexts.Add(GetThreadName(), dataContext);
             }
         }
 

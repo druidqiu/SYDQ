@@ -1,16 +1,11 @@
-﻿using SYDQ.Core;
+﻿using System.Linq;
+using SYDQ.Core;
 using SYDQ.Infrastructure.Domain;
 using SYDQ.Infrastructure.Pager;
 using SYDQ.Infrastructure.UnitOfWork;
 using SYDQ.IServices.Interfaces;
-using SYDQ.IServices.Messaging;
 using SYDQ.IServices.Messaging.UserService;
 using SYDQ.IServices.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYDQ.Services.Implementations
 {

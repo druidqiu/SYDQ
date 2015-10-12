@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Web;
 
 namespace SYDQ.Infrastructure.Web.Mvc.Session
@@ -27,7 +23,7 @@ namespace SYDQ.Infrastructure.Web.Mvc.Session
             if (HttpContext.Current.Session == null)
                 return null;
             object obj = HttpContext.Current.Session[SessionType.UserInfo.ToString()];
-            return obj == null ? null : obj as UserInfo;
+            return obj as UserInfo;
         }
 
         public static void StoreUserMenu(List<Menu> menus)
@@ -40,7 +36,7 @@ namespace SYDQ.Infrastructure.Web.Mvc.Session
             if (HttpContext.Current.Session == null)
                 return null;
             object obj = HttpContext.Current.Session[SessionType.UserMenu.ToString()];
-            return obj == null ? null : obj as List<Menu>;
+            return obj as List<Menu>;
         }
 
         public static bool CheckSessionValid()
@@ -59,10 +55,7 @@ namespace SYDQ.Infrastructure.Web.Mvc.Session
         public static RoleType GetUserRole()
         {
             var userInfo = RetrieveUserInfo();
-            if (userInfo == null)
-                return RoleType.None;
-            else
-                return (RoleType)userInfo.UserRole;
+            return userInfo == null ? RoleType.None : userInfo.UserRole;
         }
 
         public static List<string> GetUserPermissions()

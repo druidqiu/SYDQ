@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace SYDQ.Infrastructure.Helpers
 {
@@ -39,9 +38,9 @@ namespace SYDQ.Infrastructure.Helpers
                     writer.WriteLine(fullContent.ToString());
                 }
             }
-            catch (Exception)
+            catch
             {
-
+                // ignored
             }
         }
 
@@ -104,22 +103,18 @@ namespace SYDQ.Infrastructure.Helpers
             return data;
         }
 
-        public static string Truncated(string str, int Length)
+        public static string Truncated(string str, int length)
         {
-            if (str.Length > Length)
-            {
-                return str.Substring(0, Length);
-            }
-            return str;
+            return str.Length > length ? str.Substring(0, length) : str;
         }
 
-        public static string RndNum(int VcodeNum)
+        public static string RndNum(int vcodeNum)
         {
-            string[] strArray = "0,1,2,3,4,5,6,7,8,9".Split(new char[] { ',' });
+            string[] strArray = "0,1,2,3,4,5,6,7,8,9".Split(',');
             string str2 = "";
             int num = -1;
             Random random = new Random();
-            for (int i = 1; i < (VcodeNum + 1); i++)
+            for (int i = 1; i < (vcodeNum + 1); i++)
             {
                 if (num != -1)
                 {
@@ -128,7 +123,7 @@ namespace SYDQ.Infrastructure.Helpers
                 int index = random.Next(9);
                 if ((num != -1) && (num == index))
                 {
-                    return RndNum(VcodeNum);
+                    return RndNum(vcodeNum);
                 }
                 num = index;
                 str2 = str2 + strArray[index];
@@ -173,28 +168,21 @@ namespace SYDQ.Infrastructure.Helpers
             return Regex.IsMatch(numberString, pattern);
         }
 
-        public static void DeleteEmptyRows(DataSet uploadDS)
+        public static void DeleteEmptyRows(DataSet uploadDs)
         {
-            for (int tableIndex = 0; tableIndex < uploadDS.Tables.Count; tableIndex++)
+            for (int tableIndex = 0; tableIndex < uploadDs.Tables.Count; tableIndex++)
             {
-                DataTable dtUpload = uploadDS.Tables[tableIndex];
+                DataTable dtUpload = uploadDs.Tables[tableIndex];
                 for (int i = 0; i < dtUpload.Rows.Count; i++)
                 {
-                    DataRow dwUpload = dtUpload.Rows[i];
-                    bool flag = true;
-                    for (int j = 0; j < dwUpload.ItemArray.Length; j++)
-                    {
-                        if (!dwUpload.IsNull(j) && !string.IsNullOrEmpty(dwUpload.ItemArray[j].ToString().Trim()))
-                        {
-                            flag = false;
-                            break;
-                        }
-                    }
+                    DataRow dataRow = dtUpload.Rows[i];
+                    bool flag = dataRow.ItemArray.Where((t, j) => 
+                        !dataRow.IsNull(j) && !string.IsNullOrEmpty(t.ToString().Trim())).Any();
                     if (flag)
-                    {
-                        dtUpload.Rows.Remove(dwUpload);
-                        i--;
-                    }
+                        continue;
+
+                    dtUpload.Rows.Remove(dataRow);
+                    i--;
                 }
             }
         }

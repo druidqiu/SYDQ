@@ -6,11 +6,7 @@ namespace SYDQ.Infrastructure.Domain
 {
     public abstract class ValueObjectBase
     {
-        private List<BusinessRule> _brokenRules = new List<BusinessRule>();
-
-        public ValueObjectBase()
-        {
-        }
+        private readonly List<BusinessRule> _brokenRules = new List<BusinessRule>();
 
         protected abstract void Validate();
 
@@ -18,14 +14,13 @@ namespace SYDQ.Infrastructure.Domain
         {
             _brokenRules.Clear();
             Validate();
-            if (_brokenRules.Count() > 0)
-            {
-                StringBuilder issues = new StringBuilder();
-                foreach (BusinessRule businessRule in _brokenRules)
-                    issues.AppendLine(businessRule.Rule);
+            if (!_brokenRules.Any()) return;
 
-                throw new ValueObjectIsInvalidException(issues.ToString());
-            }
+            StringBuilder issues = new StringBuilder();
+            foreach (BusinessRule businessRule in _brokenRules)
+                issues.AppendLine(businessRule.Rule);
+
+            throw new ValueObjectIsInvalidException(issues.ToString());
         }
 
         protected void AddBrokenRule(BusinessRule businessRule)

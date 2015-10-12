@@ -1,16 +1,11 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using SYDQ.Infrastructure.Configuration;
 using SYDQ.Infrastructure.Domain;
 using SYDQ.Infrastructure.Email;
 using SYDQ.Infrastructure.Logging;
 using SYDQ.Infrastructure.UnitOfWork;
 using SYDQ.Repository.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SYDQ.ConsoleApp
 {
