@@ -15,7 +15,8 @@ namespace SYDQ.Infrastructure.Pager
         protected internal BasePagedList(int pageIndex, int pageSize, int totalItemCount)
         {
             if (pageIndex < 1)
-                throw new ArgumentOutOfRangeException(String.Format("pageIndex = {0}. PageIndex cannot be below 1.", pageIndex));
+                pageIndex = 1;
+                //throw new ArgumentOutOfRangeException(String.Format("pageIndex = {0}. PageIndex cannot be below 1.", pageIndex));
             if (pageSize < 1)
                 throw new ArgumentOutOfRangeException(String.Format("pageSize = {0}. PageSize cannot be less than 1.", pageSize));
 
