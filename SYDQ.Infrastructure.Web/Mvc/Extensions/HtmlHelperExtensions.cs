@@ -130,7 +130,7 @@ namespace System.Web.Mvc
             content.Append("<ul class=\"pagination pull-right\">");
             content.Append(BuildFirstLink(urlHelper, queryOptions, actionName, controllerName, routeData));
             content.Append(BuildPreviousLink(urlHelper, queryOptions, actionName, controllerName, routeData));
-            content.Append(BuildPageNumber(urlHelper, queryOptions));
+            content.Append(BuildPageNumber(queryOptions));
             content.Append(BuildNextLink(urlHelper, queryOptions, actionName, controllerName, routeData));
             content.Append(BuildLastLink(urlHelper, queryOptions, actionName, controllerName, routeData));
             content.Append("</ul>");
@@ -179,7 +179,7 @@ namespace System.Web.Mvc
             }
         }
 
-        private static string BuildPageNumber(UrlHelper urlHelper, IQueryOptions queryOptions)
+        private static string BuildPageNumber(IQueryOptions queryOptions)
         {
             return string.Format("<li><a>{0} / {1}</a></li>", queryOptions.PageIndex, queryOptions.TotalPageCount);
         }
