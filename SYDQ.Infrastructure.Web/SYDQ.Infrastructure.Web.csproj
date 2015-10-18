@@ -84,7 +84,6 @@
     <Compile Include="CookieStorage\ICookieStorageService.cs" />
     <Compile Include="Mvc\BaseController.cs" />
     <Compile Include="Mvc\Extensions\HtmlHelperExtensions.cs" />
-    <Compile Include="Mvc\Extensions\QueryOptions.cs" />
     <Compile Include="Mvc\Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Mvc\Filters\CustomHandleErrorAttribute.cs" />
     <Compile Include="Mvc\Filters\ExceptionFilter.cs" />

@@ -12,13 +12,16 @@ namespace SYDQ.Infrastructure.Pager
         {
         }
 
-        protected internal BasePagedList(int pageIndex, int pageSize, int totalItemCount)
+        protected internal BasePagedList(int pageIndex, int pageSize, int totalItemCount, string sortField, SortOrder sortOrder)
         {
             if (pageIndex < 1)
                 pageIndex = 1;
                 //throw new ArgumentOutOfRangeException(String.Format("pageIndex = {0}. PageIndex cannot be below 1.", pageIndex));
             if (pageSize < 1)
                 throw new ArgumentOutOfRangeException(String.Format("pageSize = {0}. PageSize cannot be less than 1.", pageSize));
+            if (string.IsNullOrEmpty(sortField))
+                throw new ArgumentNullException(String.Format("SortField cannot be empty."));
+
 
             // set source to blank list if superset is null to prevent exceptions
             TotalItemCount = totalItemCount;
@@ -27,6 +30,7 @@ namespace SYDQ.Infrastructure.Pager
             TotalPageCount = TotalItemCount > 0
                             ? (int)Math.Ceiling(TotalItemCount / (double)PageSize)
                             : 0;
+            if (pageIndex > TotalPageCount) PageIndex = TotalPageCount;
             HasPreviousPage = PageIndex > 1;
             HasNextPage = PageIndex < TotalPageCount;
             IsFirstPage = PageIndex == 1;
@@ -36,6 +40,9 @@ namespace SYDQ.Infrastructure.Pager
             LastItemOnPage = numberOfLastItemOnPage > TotalItemCount
                                 ? TotalItemCount
                                 : numberOfLastItemOnPage;
+
+            SortField = sortField;
+            SortOrder = sortOrder;
         }
 
         public IEnumerator<T> GetEnumerator()
@@ -53,7 +60,7 @@ namespace SYDQ.Infrastructure.Pager
             get { return Subset[index]; }
         }
 
-        public IPagedList GetMetaData()
+        public IQueryOptions GetMetaData()
         {
             return new PagedListMetaData(this);
         }

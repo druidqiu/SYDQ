@@ -2,7 +2,7 @@
 
 namespace SYDQ.Infrastructure.Pager
 {
-    public interface IPagedList
+    public interface IQueryOptions
     {
         int PageIndex { get; }
         int PageSize { get; }
@@ -15,12 +15,21 @@ namespace SYDQ.Infrastructure.Pager
         bool IsLastPage { get; }
         int FirstItemOnPage { get; }
         int LastItemOnPage { get; }
+
+        string SortField { get; }
+        SortOrder SortOrder { get; }
+
     }
 
-    public interface IPagedList<out T> : IPagedList, IEnumerable<T>
+    public interface IPagedList<out T> : IQueryOptions, IEnumerable<T>
     {
         T this[int index] { get; }
-        IPagedList GetMetaData();
+        IQueryOptions GetMetaData();
     }
 
+    public enum SortOrder
+    {
+        Asc = 0,
+        Desc = 1
+    }
 }

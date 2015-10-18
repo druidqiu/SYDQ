@@ -1,11 +1,11 @@
 ﻿namespace SYDQ.Infrastructure.Pager
 {
-    public class PagedListMetaData : IPagedList
+    public class PagedListMetaData : IQueryOptions
     {
         protected PagedListMetaData()
         { }
 
-        public PagedListMetaData(IPagedList pagedList)
+        public PagedListMetaData(IQueryOptions pagedList)
         {
             TotalPageCount = pagedList.TotalPageCount;
             TotalItemCount = pagedList.TotalItemCount;
@@ -17,6 +17,8 @@
             IsLastPage = pagedList.IsLastPage;
             FirstItemOnPage = pagedList.FirstItemOnPage;
             LastItemOnPage = pagedList.LastItemOnPage;
+            SortField = pagedList.SortField;
+            SortOrder = pagedList.SortOrder;
         }
         public int TotalPageCount { get; protected set; }
         public int TotalItemCount { get; protected set; }
@@ -28,5 +30,12 @@
         public bool IsLastPage { get; protected set; }
         public int FirstItemOnPage { get; protected set; }
         public int LastItemOnPage { get; protected set; }
+        public string SortField { get; protected set; }
+        public SortOrder SortOrder { get; protected set; }
+
+        public string GetSortString()
+        {
+            return string.Format("{0} {1}", SortField, SortOrder);
+        }
     }
 }

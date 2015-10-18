@@ -40,8 +40,7 @@ namespace SYDQ.Services.Implementations
             if (!string.IsNullOrWhiteSpace(request.EmailAddress))
                 query = query.Where(u => u.EmailAddress.Contains(request.EmailAddress));
 
-            return query.OrderBy(u => u.Id)
-                .ToPagedList(request.PageIndex, request.PageSize, p => p.ConvertToUserView());
+            return query.ToPagedList(request.PageIndex, request.PageSize, request.SortField, request.SortOrder, p => p.ConvertToUserView());
         }
     }
 }

@@ -17,8 +17,8 @@
 <table class="table">
     <tr>
         <td>Id</td>
-        <td>Username</td>
-        <td>EmailAddress</td>
+        <td>@Html.BuildSortableLink("User Name", "UserName", Model)</td>
+        <td>@Html.BuildSortableLink("Email Address", "EmailAddress", Model)</td>
         <td>Roles</td>
     </tr>
     @foreach (var user in Model)
@@ -32,4 +32,5 @@
     }
 </table>
 
-@Html.Pager(Model)
+@*@Html.Pager(Model)*@
+@Html.BuildNextPreviousLinks(Model)
