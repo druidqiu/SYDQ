@@ -12,8 +12,8 @@ namespace SYDQ.Core
 
         public User(string username)
         {
-            Roles = new List<Role>();
-            Messages = new List<EmailMessage>();
+            Roles = new HashSet<Role>();
+            Messages = new HashSet<EmailMessage>();
             Username = username;
         }
 
@@ -23,7 +23,7 @@ namespace SYDQ.Core
         public string EmailAddress { get; set; }
         public string PasswordResetToken { get; set; }
         public DateTime? PasswordResetTokenExpirationDate { get; set; }
-        public DateTime? CreatedUtc { get; set; }
+        public DateTime CreatedUtc { get; set; }
         public virtual ICollection<Role> Roles { get; set; }
         public virtual ICollection<EmailMessage> Messages { get; set; }
 
