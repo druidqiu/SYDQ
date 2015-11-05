@@ -8,6 +8,7 @@ namespace SYDQ.Infrastructure.Domain
     public interface IReadOnlyRepository<T> where T :class, IAggregateRoot ,new()
     {
         List<TModel> SqlQuery<TModel>(string sql, params object[] sqlParams);
+        IEnumerable<TModel> SqlQuery<TModel>(string sql, Dictionary<string, object> sqlParams = null);
         T GetEntity(object id);
         T GetEntity(Expression<Func<T, bool>> expression);
         IQueryable<T> GetAll();
@@ -16,5 +17,6 @@ namespace SYDQ.Infrastructure.Domain
         IQueryable<T> GetAllAsNoTracking();
         /// <param name="paths">ep:cf=> cf.Packages or cf => cf.Packages.Select(cp => cp.PackageRegistration</param>
         IQueryable<T> GetAllIncludeAsNoTracking(params Expression<Func<T, object>>[] paths);
+        IEnumerable<T> FindBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] paths);
     }
 }

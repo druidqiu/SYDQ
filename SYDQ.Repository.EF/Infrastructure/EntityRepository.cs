@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 using EntityFramework.Extensions;
@@ -114,6 +115,33 @@ namespace SYDQ.Repository.EF
         public List<TModel> SqlQuery<TModel>(string sql, params object[] sqlParams)
         {
             return _entities.Database.SqlQuery<TModel>(sql, sqlParams).ToList();
+        }
+
+        public IEnumerable<T> FindBy(Expression<Func<T, bool>> where, params Expression<Func<T, object>>[] paths)
+        {
+            var query = GetAllAsNoTracking();
+            if (paths != null)
+            {
+                paths.Aggregate(query, (current, path) => current.Include(path));
+            }
+            return query.Where(where).ToList();
+        }
+
+
+        public IEnumerable<TModel> SqlQuery<TModel>(string sql, Dictionary<string, object> sqlParams = null)
+        {
+            if (sqlParams != null)
+            {
+                SqlParameter[] parameters = new SqlParameter[sqlParams.Keys.Count];
+                int index = 0;
+                foreach (var param in sqlParams)
+                {
+                    parameters[index] = new SqlParameter(param.Key, param.Value);
+                    index++;
+                }
+                return _entities.Database.SqlQuery<TModel>(sql, parameters).ToList();
+            }
+            return _entities.Database.SqlQuery<TModel>(sql).ToList();
         }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Email\IEmailService.cs" />
     <Compile Include="Email\SMTPService.cs" />
     <Compile Include="Email\TextLoggingEmailService.cs" />
+    <Compile Include="Extesions\DynamicLinqExpressions.cs" />
     <Compile Include="Helpers\ColumnAttribute.cs" />
     <Compile Include="Helpers\CommonHelper.cs" />
     <Compile Include="Helpers\LogWriterType.cs" />
